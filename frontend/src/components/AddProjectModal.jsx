@@ -57,11 +57,20 @@ export default function AddProjectModal({ isOpen, onClose, onAddProject }) {
 
     try {
       // POST to Flask backend server for permanent database storage
-      const res = await fetch('http://localhost:5000/api/contact' ? 'http://localhost:5000/api/projects' : '/api/projects', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newProject),
-      });
+      let res;
+      try {
+        res = await fetch('/api/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newProject),
+        });
+      } catch {
+        res = await fetch('http://localhost:5000/api/projects', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newProject),
+        });
+      }
       const data = await res.json();
 
       if (data.success && data.project) {

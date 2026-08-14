@@ -178,7 +178,7 @@ export default function AndrewChatbot() {
     try {
       let response;
       try {
-        response = await fetch('http://127.0.0.1:5000/api/chat', {
+        response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -187,16 +187,28 @@ export default function AndrewChatbot() {
             history: updatedMessages,
           }),
         });
-      } catch (e1) {
-        response = await fetch('http://localhost:5000/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: textToSend,
-            image: currentImg,
-            history: updatedMessages,
-          }),
-        });
+      } catch (e0) {
+        try {
+          response = await fetch('http://127.0.0.1:5000/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: textToSend,
+              image: currentImg,
+              history: updatedMessages,
+            }),
+          });
+        } catch (e1) {
+          response = await fetch('http://localhost:5000/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: textToSend,
+              image: currentImg,
+              history: updatedMessages,
+            }),
+          });
+        }
       }
       const data = await response.json();
       if (data.success && data.reply) {

@@ -135,7 +135,12 @@ export default function ProjectsHorizontal() {
   useEffect(() => {
     const fetchServerProjects = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/projects');
+        let res;
+        try {
+          res = await fetch('/api/projects');
+        } catch {
+          res = await fetch('http://localhost:5000/api/projects');
+        }
         const data = await res.json();
         if (data.success && Array.isArray(data.projects) && data.projects.length > 0) {
           setProjects(data.projects);
