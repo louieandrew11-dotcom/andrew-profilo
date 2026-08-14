@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#050507" stop-opacity="0"/>
+    </radialGradient>
+    
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.02"/>
+    </linearGradient>
+
+    <linearGradient id="neonCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+
+    <linearGradient id="neonPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    
+    <filter id="blurGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30"/>
+    </filter>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+  </defs>
+
+  <!-- Background Soft Aura -->
+  <circle cx="400" cy="500" r="350" fill="url(#bgGlow)" />
+  
+  <!-- Outer Floating Ring 1 -->
+  <circle cx="400" cy="500" r="320" stroke="url(#neonCyan)" stroke-width="1.5" stroke-dasharray="8 12" fill="none" opacity="0.35"/>
+
+  <!-- Outer Floating Ring 2 (Rotated) -->
+  <circle cx="400" cy="500" r="280" stroke="url(#neonPurple)" stroke-width="2" stroke-dasharray="140 40 20 40" fill="none" opacity="0.5"/>
+
+  <!-- Glass Circle Backdrop -->
+  <circle cx="400" cy="500" r="230" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" />
+
+  <!-- Inner Tech Grid lines -->
+  <path d="M 200 500 H 600 M 400 300 V 700" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <circle cx="400" cy="500" r="180" stroke="rgba(255,255,255,0.08)" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Stylized Creative Developer Avatar Silhouette -->
+  <!-- Shoulders / Jacket -->
+  <path d="M 240 760 C 240 640, 310 600, 400 600 C 490 600, 560 640, 560 760 L 580 850 H 220 Z" fill="#0f0f18" stroke="url(#neonPurple)" stroke-width="2"/>
+
+  <!-- Inner Hoodie / Tech Wear -->
+  <path d="M 330 630 L 400 700 L 470 630 V 780 H 330 Z" fill="#181824" stroke="url(#neonCyan)" stroke-width="1.5" opacity="0.9"/>
+  
+  <!-- Neck -->
+  <rect x="360" y="520" width="80" height="90" rx="10" fill="#1c1c28"/>
+
+  <!-- Head Silhouette -->
+  <path d="M 320 420 C 320 320, 480 320, 480 420 C 480 500, 450 540, 400 540 C 350 540, 320 500, 320 420 Z" fill="#14141e" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+
+  <!-- Cyber Visor / Glasses -->
+  <path d="M 340 400 H 460 C 470 400, 470 430, 460 430 H 340 C 330 430, 330 400, 340 400 Z" fill="url(#neonCyan)" opacity="0.85" filter="url(#softGlow)"/>
+  <path d="M 340 400 H 460" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Code particles floating in visor -->
+  <text x="360" y="422" fill="#050507" font-family="monospace" font-size="12" font-weight="bold">LOUIE &lt;/&gt;</text>
+
+  <!-- Glowing Headset / Ambient Accent -->
+  <path d="M 310 410 C 300 370, 340 330, 400 330 C 460 330, 500 370, 490 410" stroke="url(#neonPurple)" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <rect x="305" y="400" width="16" height="40" rx="8" fill="#a855f7" filter="url(#softGlow)"/>
+  <rect x="479" y="400" width="16" height="40" rx="8" fill="#38bdf8" filter="url(#softGlow)"/>
+
+  <!-- Floating Glass Cards / Code Snippets around avatar -->
+  <g transform="translate(140, 260) rotate(-8)">
+    <rect width="180" height="70" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <circle cx="20" cy="20" r="4" fill="#ff5f56"/>
+    <circle cx="34" cy="20" r="4" fill="#ffbd2e"/>
+    <circle cx="48" cy="20" r="4" fill="#27c93f"/>
+    <text x="16" y="48" fill="#38bdf8" font-family="monospace" font-size="13">const dev = "LA";</text>
+  </g>
+
+  <g transform="translate(480, 560) rotate(10)">
+    <rect width="200" height="85" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
+    <text x="16" y="32" fill="#c084fc" font-family="monospace" font-size="13">Python &amp; Flask</text>
+    <text x="16" y="58" fill="#94a3b8" font-family="monospace" font-size="11">✓ MongoDB Sync</text>
+  </g>
+
+  <g transform="translate(500, 220) rotate(6)">
+    <rect width="160" height="60" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(56,189,248,0.4)" stroke-width="1"/>
+    <text x="16" y="36" fill="#e2e8f0" font-family="sans-serif" font-weight="bold" font-size="14">B.E. CSE ⚡</text>
+  </g>
+
+  <!-- Orbs / Particles -->
+  <circle cx="260" cy="200" r="8" fill="#38bdf8" filter="url(#softGlow)"/>
+  <circle cx="600" cy="400" r="6" fill="#a855f7" filter="url(#softGlow)"/>
+  <circle cx="220" cy="620" r="10" fill="#c084fc" filter="url(#softGlow)"/>
+  <circle cx="560" cy="740" r="5" fill="#38bdf8" filter="url(#softGlow)"/>
+
+  <!-- Light flares -->
+  <line x1="400" y1="100" x2="400" y2="900" stroke="rgba(255,255,255,0.03)" stroke-width="2"/>
+</svg>

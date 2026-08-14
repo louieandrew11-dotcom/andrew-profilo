@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <rect width="1200" height="800" fill="#070913"/>
+  <defs>
+    <linearGradient id="p3Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="40" y="40" width="1120" height="720" rx="16" fill="url(#p3Grad)" stroke="rgba(99,102,241,0.25)" stroke-width="2"/>
+  
+  <rect x="40" y="40" width="1120" height="50" fill="#0b0f1d" rx="16"/>
+  <circle cx="75" cy="65" r="7" fill="#ff5f56"/>
+  <circle cx="95" cy="65" r="7" fill="#ffbd2e"/>
+  <circle cx="115" cy="65" r="7" fill="#27c93f"/>
+  <text x="480" y="70" fill="#818cf8" font-family="sans-serif" font-weight="bold" font-size="13">Discord Bot Dashboard &amp; Analytics Engine</text>
+
+  <!-- Metrics Grid -->
+  <g transform="translate(70, 120)">
+    <!-- Metric 1 -->
+    <rect x="0" y="0" width="240" height="120" rx="12" fill="#111827" stroke="rgba(255,255,255,0.08)"/>
+    <text x="20" y="36" fill="#94a3b8" font-family="sans-serif" font-size="13">ACTIVE SERVERS</text>
+    <text x="20" y="76" fill="#6366f1" font-family="sans-serif" font-weight="900" font-size="32">1,420+</text>
+    <text x="20" y="100" fill="#22c55e" font-family="sans-serif" font-size="12">↑ 18% this month</text>
+
+    <!-- Metric 2 -->
+    <rect x="270" y="0" width="240" height="120" rx="12" fill="#111827" stroke="rgba(255,255,255,0.08)"/>
+    <text x="290" y="36" fill="#94a3b8" font-family="sans-serif" font-size="13">TOTAL USERS</text>
+    <text x="290" y="76" fill="#38bdf8" font-family="sans-serif" font-weight="900" font-size="32">250,000+</text>
+    <text x="290" y="100" fill="#22c55e" font-family="sans-serif" font-size="12">↑ 24k active daily</text>
+
+    <!-- Metric 3 -->
+    <rect x="540" y="0" width="240" height="120" rx="12" fill="#111827" stroke="rgba(255,255,255,0.08)"/>
+    <text x="560" y="36" fill="#94a3b8" font-family="sans-serif" font-size="13">COMMAND LATENCY</text>
+    <text x="560" y="76" fill="#22c55e" font-family="sans-serif" font-weight="900" font-size="32">18 ms</text>
+    <text x="560" y="100" fill="#94a3b8" font-family="sans-serif" font-size="12">99.99% Uptime</text>
+
+    <!-- Metric 4 -->
+    <rect x="810" y="0" width="250" height="120" rx="12" fill="#111827" stroke="rgba(255,255,255,0.08)"/>
+    <text x="830" y="36" fill="#94a3b8" font-family="sans-serif" font-size="13">STATUS</text>
+    <text x="830" y="76" fill="#a855f7" font-family="sans-serif" font-weight="900" font-size="32">ONLINE</text>
+    <text x="830" y="100" fill="#818cf8" font-family="sans-serif" font-size="12">Python discord.py</text>
+  </g>
+
+  <!-- Command Console & Live Traffic Chart -->
+  <g transform="translate(70, 270)">
+    <rect x="0" y="0" width="600" height="450" rx="12" fill="#0d111c" stroke="rgba(255,255,255,0.08)"/>
+    <text x="25" y="40" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="16">Live Command Analytics</text>
+    
+    <!-- Synthetic Line Chart -->
+    <path d="M 40 380 Q 120 280, 200 320 T 360 180 T 520 120 L 560 140" fill="none" stroke="url(#blueGlow)" stroke-width="4"/>
+    <path d="M 40 380 Q 120 280, 200 320 T 360 180 T 520 120 L 560 140 V 400 H 40 Z" fill="rgba(56,189,248,0.1)"/>
+  </g>
+
+  <g transform="translate(690, 270)">
+    <rect x="0" y="0" width="440" height="450" rx="12" fill="#0d111c" stroke="rgba(255,255,255,0.08)"/>
+    <text x="25" y="40" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="16">Recent Discord Triggers</text>
+    
+    <rect x="25" y="70" width="390" height="60" rx="8" fill="#151d2e"/>
+    <text x="45" y="105" fill="#818cf8" font-family="monospace" font-size="13">!help → Executed in 12ms</text>
+    
+    <rect x="25" y="145" width="390" height="60" rx="8" fill="#151d2e"/>
+    <text x="45" y="180" fill="#38bdf8" font-family="monospace" font-size="13">!play lofi → Streaming Audio</text>
+
+    <rect x="25" y="220" width="390" height="60" rx="8" fill="#151d2e"/>
+    <text x="45" y="255" fill="#22c55e" font-family="monospace" font-size="13">!ai analyze → Model Response</text>
+  </g>
+</svg>

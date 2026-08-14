@@ -1,0 +1,25 @@
+# Environment variables & secrets
+.env
+*.env
+backend/.env
+backend/.env.local
+.env.*
+
+# Python Cache
+__pycache__/
+*.pyc
+backend/__pycache__/
+*.pyo
+*.pyd
+
+# Node modules & build outputs
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+
+# IDE & System Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

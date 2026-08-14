@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <rect width="600" height="600" fill="#09060f"/>
+  <circle cx="300" cy="300" r="180" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.3)" stroke-width="2"/>
+  <text x="140" y="290" fill="#ffffff" font-family="Cinzel, serif" font-weight="900" font-size="36">3D MOTION</text>
+  <text x="140" y="330" fill="#38bdf8" font-family="sans-serif" font-weight="bold" font-size="18">GSAP &amp; CANVAS</text>
+</svg>
