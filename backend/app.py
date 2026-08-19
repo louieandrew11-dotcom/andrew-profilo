@@ -232,12 +232,12 @@ Be helpful, concise, intelligent, engaging, and friendly. Answer programming, te
 
 def call_groq_api(prompt, history=None):
     """Calls Groq AI API (Llama 3 70B / 8B) for ultra-fast, intelligent responses."""
-    api_key = (os.getenv('GROQ_API_KEY') or '').strip()
-    if not api_key or not api_key.startswith('gsk_'):
+    raw_key = (os.getenv('GROQ_API_KEY') or '').strip()
+    if not raw_key or raw_key.startswith('your_') or 'here' in raw_key:
         return None
 
     url = "https://api.groq.com/openai/v1/chat/completions"
-    models = ["llama-3.1-8b-instant", "llama-3.3-70b-versatile", "llama3-8b-8192", "mixtral-8x7b-32768"]
+    models = ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "llama3-8b-8192", "mixtral-8x7b-32768"]
 
     messages = [{"role": "system", "content": LOUIE_ANDREW_SYSTEM_PROMPT}]
 
@@ -263,8 +263,8 @@ def call_groq_api(prompt, history=None):
                 data=json.dumps(payload).encode('utf-8'),
                 headers={
                     'Content-Type': 'application/json',
-                    'Authorization': f'Bearer {api_key}',
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+                    'Authorization': f'Bearer {raw_key}',
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
                 },
                 method='POST'
             )
@@ -284,8 +284,8 @@ def call_groq_api(prompt, history=None):
 
 def call_gemini_api(prompt, history=None):
     """Calls Google Gemini API for intelligent, dynamic responses."""
-    api_key = os.getenv('GEMINI_API_KEY') or os.getenv('AI_API_KEY')
-    if not api_key or not api_key.startswith('AIza'):
+    api_key = (os.getenv('GEMINI_API_KEY') or os.getenv('AI_API_KEY') or '').strip()
+    if not api_key or api_key.startswith('your_') or 'here' in api_key:
         return None
 
     endpoints = [
@@ -331,6 +331,7 @@ def call_gemini_api(prompt, history=None):
                     if parts:
                         text_resp = parts[0].get('text', '').strip()
                         if text_resp:
+                            print(f"[Gemini AI Success]: {text_resp[:60]}...")
                             return text_resp
         except Exception as e:
             print(f"[Gemini API Attempt Failed]: {e}")

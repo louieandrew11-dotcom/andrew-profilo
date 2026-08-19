@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import LoadingScreen from './components/LoadingScreen';
 import CustomCursor from './components/CustomCursor';
+import HeroBackgroundCanvas from './components/HeroBackgroundCanvas';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -70,9 +71,12 @@ export default function App() {
   }, [isLoading]);
 
   return (
-    <div className="relative min-h-screen bg-[#030305] text-[#ffffff] font-sans selection:bg-amber-400 selection:text-black overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#020204] text-[#ffffff] font-sans selection:bg-amber-400 selection:text-black overflow-x-hidden dark-liquid-bg">
       {/* Film Grain Texture Overlay */}
       <div className="grain-overlay" />
+
+      {/* Global Interactive Animated Canvas Background */}
+      <HeroBackgroundCanvas mousePos={mousePos} />
 
       {/* Netflix-Style Ta-Dum Loading Screen */}
       {isLoading ? (
