@@ -31,13 +31,26 @@ const GeminiLogo = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
+const renderFormattedText = (text) => {
+  if (!text) return null;
+  
+  // Format bold **text** -> <strong>
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={i} className="font-bold text-amber-300">{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
+
 export default function AndrewChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTheme, setActiveTheme] = useState('gold');
   const [messages, setMessages] = useState([
     {
       sender: 'bot',
-      text: "Hi, I am Andrew! 👋 Vanakkam! How can I help you today?",
+      text: "Hi, I am Andrew! 👋 Vanakkam! How can I help you today? Ask me about Louie Andrew's projects, skills, or engineering background!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -115,10 +128,6 @@ export default function AndrewChatbot() {
     'College & Engineering',
     'Gaming & GTA FiveM',
   ];
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, isTyping]);
 
   // Voice Output
   const speakText = (text, index) => {
@@ -216,36 +225,12 @@ export default function AndrewChatbot() {
       },
     ]);
     setIsTyping(false);
-
-    // Auto-scroll the portfolio page to the requested section
-    setTimeout(() => {
-      detectAndScrollToSection(textToSend);
-    }, 300);
   };
 
   const scrollToSection = (sectionId) => {
     const el = document.getElementById(sectionId);
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const detectAndScrollToSection = (text) => {
-    const q = text.toLowerCase();
-    if (q.includes('project') || q.includes('work') || q.includes('build') || q.includes('showcase')) {
-      scrollToSection('projects');
-    } else if (q.includes('skill') || q.includes('tech') || q.includes('python') || q.includes('stack')) {
-      scrollToSection('skills');
-    } else if (q.includes('about') || q.includes('who is') || q.includes('bio') || q.includes('profile')) {
-      scrollToSection('about');
-    } else if (q.includes('contact') || q.includes('email') || q.includes('reach') || q.includes('hire') || q.includes('message')) {
-      scrollToSection('contact');
-    } else if (q.includes('gallery') || q.includes('photo') || q.includes('visual')) {
-      scrollToSection('gallery');
-    } else if (q.includes('social') || q.includes('instagram') || q.includes('github') || q.includes('link')) {
-      scrollToSection('socials');
-    } else if (q.includes('hero') || q.includes('home') || q.includes('top') || q.includes('start')) {
-      scrollToSection('hero');
     }
   };
 
@@ -277,9 +262,6 @@ export default function AndrewChatbot() {
     if (text.includes('skill') || text.includes('tech') || text.includes('stack')) {
       links.push({ label: '📍 Jump to Skills', sectionId: 'skills' });
     }
-    if (text.includes('contact') || text.includes('reach')) {
-      links.push({ label: '📍 Jump to Contact', sectionId: 'contact' });
-    }
     if (text.includes('about') || text.includes('louie')) {
       links.push({ label: '📍 Jump to About', sectionId: 'about' });
     }
@@ -287,7 +269,7 @@ export default function AndrewChatbot() {
     return links;
   };
 
-  // DYNAMIC NATURAL LANGUAGE LOCAL KNOWLEDGE ENGINE (VARIED RESPONSES)
+  // DYNAMIC NATURAL LANGUAGE LOCAL KNOWLEDGE ENGINE
   const getLocalBotReply = (query, img) => {
     if (img) {
       return "📸 Image analyzed cleanly! Perfect visual addition to Louie's portfolio.";
@@ -353,7 +335,7 @@ export default function AndrewChatbot() {
     }
 
     if (q.includes('project') || q.includes('work') || q.includes('built') || q.includes('portfolio')) {
-      return "🚀 Louie Andrew S has built 6 flagship full-stack projects including AI Electronics E-Commerce, SkillForge LMS, Discord Bot Engine, Cinematic 3D Portfolio, Neural Sound Matrix, and Cloud Telemetry Dashboard!";
+      return "🚀 Louie Andrew S has built 6 flagship full-stack projects including Ani Apple Store (Siri AI), SkillForge LMS, Discord Bot Engine, Cinematic 3D Portfolio, Neural Sound Matrix, and Cloud Telemetry Dashboard!";
     }
 
     if (q.includes('who is louie') || q.includes('about louie') || q.includes('identity') || q.includes('profile') || q.includes('louie andrew')) {
@@ -438,7 +420,7 @@ export default function AndrewChatbot() {
 
       {/* EXPANDED CHATBOT WINDOW */}
       {isOpen && (
-        <div data-lenis-prevent className={`w-[360px] sm:w-[440px] h-[620px] rounded-3xl bg-[#030305]/95 ${currentTheme.border} flex flex-col overflow-hidden animate-fadeIn backdrop-blur-3xl relative transition-all duration-500`}>
+        <div data-lenis-prevent className={`w-[360px] sm:w-[440px] h-[620px] rounded-3xl bg-[#020204]/95 ${currentTheme.border} flex flex-col overflow-hidden animate-fadeIn backdrop-blur-3xl relative transition-all duration-500 shadow-2xl`}>
           
           {/* LOUIE PHOTO WATERMARK BACKGROUND */}
           <div className="absolute inset-0 pointer-events-none z-0 opacity-15 overflow-hidden">
@@ -447,7 +429,7 @@ export default function AndrewChatbot() {
               alt="Louie Photo Background Theme"
               className="w-full h-full object-cover filter contrast-125 brightness-75 scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030305] via-[#030305]/80 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020204] via-[#020204]/85 to-transparent" />
           </div>
 
           {/* TOP HEADER */}
@@ -531,7 +513,7 @@ export default function AndrewChatbot() {
                       </div>
                     )}
 
-                    <span>{msg.text}</span>
+                    <span>{renderFormattedText(msg.text)}</span>
 
                     {msg.sender === 'bot' && (
                       <button

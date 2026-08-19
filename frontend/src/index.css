@@ -3,43 +3,85 @@
 @layer base {
   html {
     color-scheme: dark;
-    background-color: #030305;
+    background-color: #020204;
   }
   
   body {
     cursor: default;
     overflow-x: hidden;
     touch-action: manipulation;
+    background-color: #020204;
   }
 }
 
-/* Custom Ultra-Luxury Glassmorphism System */
+/* ==========================================================================
+   ULTRA-LUXURY LIQUID GLASS & DARK THEME SYSTEM
+   ========================================================================== */
+
+/* Dark Liquid Background Ambient Spotlight */
+.dark-liquid-bg {
+  background-color: #020204;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(147, 51, 234, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+}
+
+/* Liquid Glass Panel */
+.liquid-glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.015) 50%,
+    rgba(255, 255, 255, 0.005) 100%
+  );
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    0 30px 70px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
 }
 
-.glass-card {
-  background: rgba(13, 14, 21, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+/* Liquid Glass Interactive Card */
+.glass-card, .liquid-glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 17, 26, 0.75) 0%,
+    rgba(8, 9, 14, 0.85) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
-.glass-card:hover {
-  background: rgba(20, 22, 33, 0.8);
-  border-color: rgba(245, 158, 11, 0.4);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px rgba(245, 158, 11, 0.2);
+.glass-card:hover, .liquid-glass-card:hover {
+  background: linear-gradient(
+    145deg,
+    rgba(24, 27, 42, 0.85) 0%,
+    rgba(12, 14, 22, 0.95) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 
+    0 25px 70px rgba(0, 0, 0, 0.75),
+    0 0 40px rgba(245, 158, 11, 0.25);
   transform: translateY(-4px) scale(1.01);
 }
 
 .glass-nav {
-  background: rgba(8, 8, 12, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(6, 6, 10, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }
@@ -47,7 +89,7 @@
 .glass-button {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -56,6 +98,21 @@
   color: #030305;
   border-color: #fbbf24;
   box-shadow: 0 10px 30px rgba(251, 191, 36, 0.35);
+}
+
+/* Liquid Input Styling */
+.liquid-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.liquid-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+  outline: none;
 }
 
 /* Film Grain Overlay */
@@ -70,22 +127,22 @@
   z-index: 9999;
 }
 
-/* Custom Gold Scrollbar */
+/* Custom Liquid Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #030305;
+  background: #020204;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.35);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(245, 158, 11, 0.6);
+  background: rgba(245, 158, 11, 0.7);
 }
 
 /* Outline Text Effect */
@@ -111,6 +168,10 @@
 /* Glow Text */
 .text-glow {
   text-shadow: 0 0 45px rgba(251, 191, 36, 0.35);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
 }
 
 @media (min-width: 1024px) {
