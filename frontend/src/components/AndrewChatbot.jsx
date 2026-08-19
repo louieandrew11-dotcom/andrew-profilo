@@ -295,7 +295,7 @@ export default function AndrewChatbot() {
       return `🔢 Calculation result: ${n1} ${op} ${n2} = ${ans}`;
     }
 
-    if (q.includes('hi') || q.includes('hello') || q.includes('hey') || q.includes('vanakkam') || q.includes('sup') || q.includes('yo')) {
+    if (/\b(hi|hello|hey|vanakkam|sup|yo)\b/i.test(q)) {
       const greetings = [
         "Hi there! 👋 Vanakkam! How can I help you today? Feel free to ask me anything!",
         "Hello! 🚀 Welcome to Louie Andrew S's portfolio! Ask me any question about his projects or skills!",
@@ -339,11 +339,19 @@ export default function AndrewChatbot() {
     }
 
     if (q.includes('who is louie') || q.includes('about louie') || q.includes('identity') || q.includes('profile') || q.includes('louie andrew')) {
-      return "👨‍💻 Louie Andrew S is a B.E. Computer Science Engineering student (2024–2028) at St. Joseph's College of Engineering, Chennai, specializing in React, Python Flask, and AI systems.";
+      return "👨‍💻 Louie Andrew S is a Computer Science Engineering student (2024–2028) at St. Joseph's College of Engineering, Chennai. He is a creative developer who combines programming, web development, animation, AI, and gaming to build real-world applications.";
+    }
+
+    if (q.includes('learn') || q.includes('philosophy') || q.includes('how do you learn')) {
+      return "💡 Louie learns best by practical building! If learning React, he builds a web app; if learning Python, he creates an automation or bot. He prefers step-by-step simple explanations and systematic debugging.";
+    }
+
+    if (q.includes('hackathon') || q.includes('idea') || q.includes('concept')) {
+      return "💡 Louie loves hackathons and turning ideas into real software! Explored concepts include FairHire (Skills Over Stereotypes AI recruitment), SkillForge LMS, University Ecosystems, Smart Survey Systems, and Siri AI Commerce.";
     }
 
     if (q.includes('skill') || q.includes('tech') || q.includes('python') || q.includes('language') || q.includes('stack')) {
-      return "💻 Technical stack: Python, JavaScript, C, C++, Java, SQL, React, Vite, Flask, MongoDB, Tailwind CSS, and GSAP animation physics.";
+      return "💻 Technical stack: HTML, CSS, JavaScript, React, TypeScript, Python, Flask, FastAPI, MongoDB, MySQL, Git, GitHub, Vercel, Firebase, and Discord.py.";
     }
 
     if (q.includes('college') || q.includes('education') || q.includes('study')) {
