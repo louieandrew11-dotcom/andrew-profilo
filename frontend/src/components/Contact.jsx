@@ -228,8 +228,6 @@ export default function Contact() {
       <SuccessModal
         isOpen={isSuccessOpen}
         onClose={() => setIsSuccessOpen(false)}
-        emailDelivered={emailDelivered}
-        lastMessage={lastSubmittedData}
       />
     </>
   );
