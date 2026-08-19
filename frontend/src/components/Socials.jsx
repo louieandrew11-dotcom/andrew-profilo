@@ -52,8 +52,8 @@ export default function Socials() {
     },
     {
       name: 'EMAIL',
-      handle: 'louieandrew.dev@gmail.com',
-      url: 'mailto:louieandrew.dev@gmail.com',
+      handle: 'louieandrew11@gmail.com',
+      url: 'mailto:louieandrew11@gmail.com',
       icon: Mail,
     },
   ];

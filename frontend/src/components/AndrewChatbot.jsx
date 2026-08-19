@@ -176,45 +176,31 @@ export default function AndrewChatbot() {
     let botLinks = null;
 
     try {
-      let response;
-      try {
-        response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: textToSend,
-            image: currentImg,
-            history: updatedMessages,
-          }),
-        });
-      } catch (e0) {
+      const chatEndpoints = ['http://localhost:5000/api/chat', 'http://127.0.0.1:5000/api/chat', '/api/chat'];
+      for (const url of chatEndpoints) {
         try {
-          response = await fetch('http://127.0.0.1:5000/api/chat', {
+          const response = await fetch(url, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
               message: textToSend,
               image: currentImg,
               history: updatedMessages,
             }),
           });
-        } catch (e1) {
-          response = await fetch('http://localhost:5000/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              message: textToSend,
-              image: currentImg,
-              history: updatedMessages,
-            }),
-          });
+          const contentType = response.headers.get('content-type') || '';
+          if (response.ok && contentType.includes('application/json')) {
+            const data = await response.json();
+            if (data.success && data.reply) {
+              replyText = data.reply;
+              genImg = data.generatedImage || null;
+              botLinks = data.links || null;
+              break;
+            }
+          }
+        } catch {
+          // Continue to next endpoint
         }
-      }
-      const data = await response.json();
-      if (data.success && data.reply) {
-        replyText = data.reply;
-        genImg = data.generatedImage || null;
-        botLinks = data.links || null;
       }
     } catch (err) {
       console.warn('Backend server response fallback active:', err);
@@ -280,7 +266,7 @@ export default function AndrewChatbot() {
       links.push({ label: '💼 LinkedIn Profile', url: 'https://www.linkedin.com/in/louieandrew11/' });
     }
     if (text.includes('contact') || text.includes('email') || text.includes('hire') || text.includes('mail')) {
-      links.push({ label: '📫 Email Louie', url: 'mailto:louieandrew.dev@gmail.com' });
+      links.push({ label: '📫 Email Louie', url: 'mailto:louieandrew11@gmail.com' });
     }
     if (text.includes('discord') || text.includes('community')) {
       links.push({ label: '💬 Discord Community', url: 'https://github.com/louieandrew/discord-bot-system' });
@@ -395,7 +381,7 @@ export default function AndrewChatbot() {
     }
 
     if (q.includes('contact') || q.includes('email') || q.includes('hire')) {
-      return "📫 Contact Louie Andrew S directly via email at: louieandrew.dev@gmail.com or leave a message on the contact section!";
+      return "📫 Contact Louie Andrew S directly via email at: louieandrew11@gmail.com or leave a message on the contact section!";
     }
 
     if (q.includes('react')) {

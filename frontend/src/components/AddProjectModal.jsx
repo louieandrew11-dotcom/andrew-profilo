@@ -57,25 +57,29 @@ export default function AddProjectModal({ isOpen, onClose, onAddProject }) {
 
     try {
       // POST to Flask backend server for permanent database storage
-      let res;
-      try {
-        res = await fetch('/api/projects', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newProject),
-        });
-      } catch {
-        res = await fetch('http://localhost:5000/api/projects', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newProject),
-        });
+      const endpoints = ['http://localhost:5000/api/projects', '/api/projects'];
+      let projectSaved = false;
+      for (const url of endpoints) {
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(newProject),
+          });
+          const contentType = res.headers.get('content-type') || '';
+          if (res.ok && contentType.includes('application/json')) {
+            const data = await res.json();
+            if (data.success && data.project) {
+              onAddProject(data.project);
+              projectSaved = true;
+              break;
+            }
+          }
+        } catch {
+          // Continue to next endpoint
+        }
       }
-      const data = await res.json();
-
-      if (data.success && data.project) {
-        onAddProject(data.project);
-      } else {
+      if (!projectSaved) {
         onAddProject(newProject);
       }
     } catch (err) {

@@ -55,7 +55,7 @@ export default function Hero({ mousePos }) {
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/louieandrew11/', icon: LinkedinIcon },
     { name: 'Instagram', url: 'https://www.instagram.com/ig_andrew__11_/?hl=en', icon: InstagramIcon },
     { name: 'Discord', url: 'https://discord.com', icon: MessageSquare },
-    { name: 'Email', url: 'mailto:louieandrew.dev@gmail.com', icon: Mail },
+    { name: 'Email', url: 'mailto:louieandrew11@gmail.com', icon: Mail },
   ];
 
   useEffect(() => {

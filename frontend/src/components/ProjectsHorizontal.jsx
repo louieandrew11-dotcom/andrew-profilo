@@ -9,119 +9,44 @@ gsap.registerPlugin(ScrollTrigger);
 
 const DEFAULT_PROJECTS = [
   {
-    number: 'PROJECT 01',
-    title: 'ANI APPLE STORE — APPLE INTELLIGENCE',
-    subtitle: 'Smart E-Commerce Platform with Live Siri AI Assistant & Titanium Showcase',
+    number: 'Ani Apple Store ',
+    title: 'AI-POWERED ELECTRONICS E-COMMERCE',
+    subtitle: 'Smart Commerce with AI Recommendation & Dynamic Inventory',
     description:
-      'A sleek dark luxury Apple e-commerce platform built for iPhone 16 Pro and high-end electronics. Integrates live Siri AI Assistant, Grade 5 Titanium showcase, A18 Pro tech spec comparison, and interactive trade-in estimates.',
+      'A sleek dark luxury e-commerce platform built for high-end electronics. Integrates AI recommendations, real-time inventory sync, dynamic filtering, and interactive cart mechanics.',
     fullDescription:
-      'Ani Apple Store is a full-stack dark luxury e-commerce web application engineered with modern React frontend architecture and a scalable Python Flask REST backend. Features an integrated live Siri AI Assistant for instant price checking in India, A18 Pro specs comparison, Grade 5 Titanium design showcase, interactive trade-in estimate calculator, Owner Portal, secure payment processing, and real-time MongoDB database updates.',
-    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'GSAP', 'Siri AI', 'Apple Intelligence'],
-    image: '/assets/project_ani_apple_store.png',
+      'Full-stack e-commerce web application engineered with modern React frontend architecture and a scalable Python Flask REST backend. Features intelligent search auto-completion, AI product recommendations based on browsing metrics, secure payment processing, and real-time MongoDB database updates.',
+    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'GSAP'],
+    image: '/assets/project_ecommerce.svg',
     liveUrl: 'https://apple-ai-mu.vercel.app/',
     githubUrl: 'https://github.com/louieandrew11-dotcom/ai-electronics-store',
     features: [
-      'Live Siri AI Assistant widget with instant iPhone prices, specs & trade-in estimates',
-      'Grade 5 Titanium & A18 Pro interactive tech spec comparison engine',
-      'Quick Prompts: iPhone 16 Pro Price in India, Compare 16 Pro vs 15 Pro, Trade-In Estimate',
-      'Real-time inventory stock sync with MongoDB Atlas & Glassmorphism Owner Portal'
+      'AI Product Recommendation engine based on viewing history',
+      'Real-time inventory stock sync with MongoDB Atlas',
+      'Glassmorphism cart overlay with instant calculation',
+      'Mobile responsive dark luxury UI design'
     ]
   },
   {
     number: 'PROJECT 02',
-    title: 'SLEEPYGO — HOTEL & DESTINATION BOOKING',
-    subtitle: 'Full-Stack Hotel Reservation Engine & City Destination Discovery',
+    title: 'SKILLFORGE PLATFORM',
+    subtitle: 'Interactive Developer Code Learning & Execution Sandbox',
     description:
-      'A sleek luxury hotel booking web platform empowering users to search, compare, and reserve over 500,000 hotel rooms across 50+ Indian cities and global destinations with instant check-in confirmation.',
+      'An interactive educational web platform empowering computer science students to master Python, web development, and algorithms via live in-browser code execution.',
     fullDescription:
-      'SleepyGo is a full-stack web application built for seamless hotel room reservation and travel destination discovery. Engineered with modern React frontend architecture and a scalable Python Flask REST backend. Features intelligent city location filtering, date-range check-in/check-out pickers, dynamic guest count calculators, secure user authentication (Sign In / Sign Up), real-time MongoDB inventory updates, and interactive popular destination showcases.',
-    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'Vite', 'REST API'],
-    image: '/assets/project_sleepygo.png',
-    liveUrl: 'https://sleep-go.vercel.app/',
-    githubUrl: 'https://github.com/louieandrew11-dotcom/sleepygo-hotel-booking',
+      'SkillForge is an advanced interactive learning studio allowing users to solve programming challenges with instant execution feedback. Built with React and Flask execution environment, offering real-time syntax checking, gamified progress tracks, and code performance benchmarks.',
+    tags: ['React', 'Python', 'Flask', 'Monaco IDE', 'Docker', 'Tailwind'],
+    image: '/assets/project_skillforge.svg',
+    liveUrl: 'https://github.com/louieandrew11-dotcom/skillforge-platform',
+    githubUrl: 'https://github.com/louieandrew11-dotcom/skillforge-platform',
     features: [
-      'Location-based hotel search covering 500,000+ rooms across 50+ cities',
-      'Interactive check-in & check-out date picker with dynamic guest count filter',
-      'Real-time hotel room availability sync powered by MongoDB database backend',
-      'Sleek responsive booking UI with secure Sign In / Sign Up authentication'
+      'In-browser live Python execution sandbox',
+      'Interactive learning modules with step-by-step progress tracking',
+      'Automated test runner and code output validator',
+      'Dark high-tech IDE interface'
     ]
   },
-  {
-    number: 'PROJECT 03',
-    title: 'DISCORD BOT SYSTEM',
-    subtitle: 'High-Performance Automation & Community Analytics Engine',
-    description:
-      'A robust Python Discord bot system managing server moderation, AI chat integration, custom music streaming, and real-time community engagement analytics.',
-    fullDescription:
-      'Engineered with discord.py, PyMongo, and asynchronous event loops. Manages over 1,420 active Discord servers and 250k+ users with sub-20ms command latency. Features live web dashboard analytics for server administrators.',
-    tags: ['Python', 'discord.py', 'MongoDB', 'Asyncio', 'Flask API'],
-    image: '/assets/project_discord.svg',
-    liveUrl: 'https://github.com/louieandrew11-dotcom/discord-bot-system',
-    githubUrl: 'https://github.com/louieandrew11-dotcom/discord-bot-system',
-    features: [
-      'Asynchronous event engine serving 250,000+ total users',
-      'Sub-20ms command execution latency',
-      'Live web dashboard for command analytics & status',
-      'Automated moderation & AI chatbot features'
-    ]
-  },
-  {
-    number: 'PROJECT 04',
-    title: 'DEVELOPER PORTFOLIO',
-    subtitle: 'Cinematic Editorial Portfolio & 3D Parallax Experience',
-    description:
-      'The dark luxury portfolio you are currently viewing. Built with oversized editorial typography, Lenis inertia scrolling, 3D mouse parallax, and Flask + MongoDB backend.',
-    fullDescription:
-      'An award-worthy digital experience showcasing full-stack capabilities through cinematic animations, 3D floating profile visuals, pinned horizontal project navigation, and a robust Flask contact system with email notification engine.',
-    tags: ['React', 'Vite', 'GSAP', 'Lenis Scroll', 'Python Flask', 'MongoDB'],
-    image: '/assets/project_portfolio.svg',
-    liveUrl: '#',
-    githubUrl: 'https://github.com/louieandrew11-dotcom/developer-portfolio',
-    features: [
-      'Netflix-style cinematic intro animation with joined text',
-      '3D mouse parallax & virtual camera composition shift',
-      'Horizontal scroll project showcase powered by GSAP ScrollTrigger',
-      'Flask backend with MongoDB storage & email notifications'
-    ]
-  },
-  {
-    number: 'PROJECT 05',
-    title: 'NEURAL AI SOUND MATRIX',
-    subtitle: 'Real-Time Web Synthesizer & Neural Audio Generation Engine',
-    description:
-      'Interactive Web Audio synthesizer engineered with Python PyTorch audio models, WebGL visualizers, and Flask streaming WebSocket API.',
-    fullDescription:
-      'Neural Sound Matrix is a cutting-edge web audio workstation allowing producers to generate custom synthesizer patches using machine learning models.',
-    tags: ['Python', 'Flask', 'PyTorch', 'Web Audio API', 'React', 'WebGL'],
-    image: '/assets/gallery_3.svg',
-    liveUrl: 'https://github.com/louieandrew11-dotcom/neural-sound-matrix',
-    githubUrl: 'https://github.com/louieandrew11-dotcom/neural-sound-matrix',
-    features: [
-      'Real-time neural audio synthesis engine',
-      'WebGL 3D audio waveform canvas rendering',
-      'Sub-15ms WebSocket audio buffer streaming',
-      'Flask REST API backend'
-    ]
-  },
-  {
-    number: 'PROJECT 06',
-    title: 'CLOUD INFRASTRUCTURE DASHBOARD',
-    subtitle: 'Real-Time Server Analytics & Telemetry Monitor',
-    description:
-      'High-performance DevOps infrastructure monitoring dashboard tracking server metrics, CPU/RAM spikes, database latencies, and active connections.',
-    fullDescription:
-      'Full-stack monitoring system built for cloud servers. Features live graph rendering, automated email alerts on high load, and real-time MongoDB database connection pooling.',
-    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Recharts', 'Tailwind CSS'],
-    image: '/assets/gallery_2.svg',
-    liveUrl: 'https://github.com/louieandrew11-dotcom/cloud-telemetry-monitor',
-    githubUrl: 'https://github.com/louieandrew11-dotcom/cloud-telemetry-monitor',
-    features: [
-      'Live WebSocket server telemetry stream',
-      'Automated load spike email alert system',
-      'MongoDB database latency tracking',
-      'Dark cybernetic UI design'
-    ]
-  }
+
 ];
 
 export default function ProjectsHorizontal() {
@@ -134,19 +59,21 @@ export default function ProjectsHorizontal() {
   // Fetch permanent projects from Flask backend server
   useEffect(() => {
     const fetchServerProjects = async () => {
-      try {
-        let res;
+      const endpoints = ['http://localhost:5000/api/projects', '/api/projects'];
+      for (const url of endpoints) {
         try {
-          res = await fetch('/api/projects');
+          const res = await fetch(url);
+          const contentType = res.headers.get('content-type') || '';
+          if (res.ok && contentType.includes('application/json')) {
+            const data = await res.json();
+            if (data.success && Array.isArray(data.projects) && data.projects.length > 0) {
+              setProjects(data.projects);
+              return;
+            }
+          }
         } catch {
-          res = await fetch('http://localhost:5000/api/projects');
+          // Continue to next endpoint
         }
-        const data = await res.json();
-        if (data.success && Array.isArray(data.projects) && data.projects.length > 0) {
-          setProjects(data.projects);
-        }
-      } catch (err) {
-        console.warn('Backend server offline, using default projects:', err);
       }
     };
 

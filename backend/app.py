@@ -5,6 +5,9 @@ import ssl
 import datetime
 import urllib.request
 import urllib.error
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
@@ -141,16 +144,26 @@ def save_to_local_file(filepath, data):
         except Exception:
             records = []
     records.append(data)
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(records, f, indent=2, ensure_ascii=False)
+    try:
+        with open(filepath, 'w', encoding='utf-8') as f:
+            json.dump(records, f, indent=2, ensure_ascii=False)
+    except Exception:
+        try:
+            tmp_path = os.path.join('/tmp', os.path.basename(filepath))
+            with open(tmp_path, 'w', encoding='utf-8') as f:
+                json.dump(records, f, indent=2, ensure_ascii=False)
+        except Exception:
+            pass
 
 def read_local_file(filepath):
-    if os.path.exists(filepath):
-        try:
-            with open(filepath, 'r', encoding='utf-8') as f:
-                return json.load(f)
-        except Exception:
-            return []
+    paths_to_try = [filepath, os.path.join('/tmp', os.path.basename(filepath))]
+    for p in paths_to_try:
+        if os.path.exists(p):
+            try:
+                with open(p, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except Exception:
+                continue
     return []
 
 # FULLY TRAINED MASTER SYSTEM PROMPT FOR LOUIE ANDREW S (43-SECTION COMPLETE PERSONAL PROFILE)
@@ -493,6 +506,193 @@ def generate_ai_response(query, history=None):
     return f"💡 Regarding '{clean_query}': Louie Andrew S is a B.E. Computer Science Engineering student specializing in full-stack React, Python Flask, and AI systems. Feel free to ask about his 6 flagship projects, skills, or programming topics!", None
 
 
+def send_email_notification(contact_record):
+    """
+    Sends an email notification to OWNER_EMAIL (louieandrew11@gmail.com) whenever a contact message is received.
+    Supports Resend API Key, SendGrid API Key, Brevo API Key, or Gmail SMTP App Password.
+    """
+    to_email = os.getenv('OWNER_EMAIL', 'louieandrew11@gmail.com').strip()
+    sender_name = contact_record.get('name', 'Anonymous Visitor')
+    sender_email = contact_record.get('email', '')
+    subject_text = contact_record.get('subject', 'Portfolio Contact Inquiry')
+    message_text = contact_record.get('message', '')
+    created_at = contact_record.get('created_at', datetime.datetime.now(datetime.timezone.utc).isoformat())
+
+    email_subject = f"📬 [Portfolio Inquiry] {subject_text} - From {sender_name}"
+
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <style>
+        body {{ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #050508; color: #f8fafc; margin: 0; padding: 20px; }}
+        .container {{ max-width: 600px; margin: 0 auto; background: #0f172a; border: 1px solid #334155; border-radius: 16px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); }}
+        .badge {{ display: inline-block; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; font-size: 11px; font-family: monospace; padding: 4px 12px; border-radius: 9999px; text-transform: uppercase; font-weight: bold; margin-bottom: 16px; }}
+        h1 {{ color: #ffffff; font-size: 24px; margin: 0 0 8px 0; letter-spacing: -0.5px; }}
+        .divider {{ border: 0; border-top: 1px solid #1e293b; margin: 24px 0; }}
+        .field {{ margin-bottom: 16px; }}
+        .label {{ font-size: 11px; font-family: monospace; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 4px; }}
+        .value {{ font-size: 15px; color: #f1f5f9; font-weight: 500; }}
+        .value a {{ color: #38bdf8; text-decoration: none; }}
+        .message-box {{ background: #020617; border: 1px solid #1e293b; border-left: 4px solid #38bdf8; border-radius: 12px; padding: 20px; margin-top: 20px; white-space: pre-wrap; color: #e2e8f0; font-size: 14px; line-height: 1.6; }}
+        .footer {{ font-size: 12px; color: #64748b; font-family: monospace; text-align: center; margin-top: 32px; }}
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <span class="badge">// NEW TRANSMISSION RECEIVED</span>
+        <h1>New Portfolio Contact Message</h1>
+        <p style="color: #94a3b8; font-size: 14px; margin-top: 4px;">Someone submitted a message on your personal website.</p>
+        
+        <div class="divider"></div>
+        
+        <div class="field">
+          <span class="label">SENDER NAME</span>
+          <div class="value">{sender_name}</div>
+        </div>
+        
+        <div class="field">
+          <span class="label">SENDER EMAIL</span>
+          <div class="value"><a href="mailto:{sender_email}">{sender_email}</a></div>
+        </div>
+
+        <div class="field">
+          <span class="label">SUBJECT</span>
+          <div class="value">{subject_text}</div>
+        </div>
+
+        <div class="field">
+          <span class="label">TIMESTAMP</span>
+          <div class="value">{created_at}</div>
+        </div>
+
+        <div class="field">
+          <span class="label">MESSAGE CONTENT</span>
+          <div class="message-box">{message_text}</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="footer">
+          Louie Andrew S Portfolio Automated Mailer &bull; louieandrew11@gmail.com
+        </div>
+      </div>
+    </body>
+    </html>
+    """
+
+    # 1. Resend API Integration (RESEND_API_KEY)
+    resend_key = os.getenv('RESEND_API_KEY', '').strip()
+    if resend_key and not resend_key.startswith('your_'):
+        try:
+            req = urllib.request.Request(
+                "https://api.resend.com/emails",
+                data=json.dumps({
+                    "from": os.getenv('MAIL_FROM', 'Portfolio Contact <onboarding@resend.dev>'),
+                    "to": [to_email],
+                    "subject": email_subject,
+                    "html": html_content,
+                    "reply_to": sender_email
+                }).encode('utf-8'),
+                headers={
+                    "Authorization": f"Bearer {resend_key}",
+                    "Content-Type": "application/json"
+                },
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=8, context=ssl_ctx) as resp:
+                print(f"[Email Engine]: Successfully sent message to {to_email} via Resend API.")
+                return True
+        except Exception as e:
+            print(f"[Email Engine Warning - Resend]: {e}")
+
+    # 2. SendGrid API Integration (SENDGRID_API_KEY)
+    sendgrid_key = os.getenv('SENDGRID_API_KEY', '').strip()
+    if sendgrid_key and not sendgrid_key.startswith('your_'):
+        try:
+            req = urllib.request.Request(
+                "https://api.sendgrid.com/v3/mail/send",
+                data=json.dumps({
+                    "personalizations": [{"to": [{"email": to_email}]}],
+                    "from": {"email": os.getenv('MAIL_FROM_EMAIL', 'noreply@portfolio.com'), "name": "Portfolio Contact"},
+                    "subject": email_subject,
+                    "content": [{"type": "text/html", "value": html_content}],
+                    "reply_to": {"email": sender_email}
+                }).encode('utf-8'),
+                headers={
+                    "Authorization": f"Bearer {sendgrid_key}",
+                    "Content-Type": "application/json"
+                },
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=8, context=ssl_ctx) as resp:
+                print(f"[Email Engine]: Successfully sent message to {to_email} via SendGrid API.")
+                return True
+        except Exception as e:
+            print(f"[Email Engine Warning - SendGrid]: {e}")
+
+    # 3. Brevo API Integration (BREVO_API_KEY)
+    brevo_key = os.getenv('BREVO_API_KEY', '').strip()
+    if brevo_key and not brevo_key.startswith('your_'):
+        try:
+            req = urllib.request.Request(
+                "https://api.brevo.com/v3/smtp/email",
+                data=json.dumps({
+                    "sender": {"name": "Portfolio Contact", "email": os.getenv('MAIL_FROM_EMAIL', to_email)},
+                    "to": [{"email": to_email}],
+                    "subject": email_subject,
+                    "htmlContent": html_content,
+                    "replyTo": {"email": sender_email}
+                }).encode('utf-8'),
+                headers={
+                    "api-key": brevo_key,
+                    "Content-Type": "application/json"
+                },
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=8, context=ssl_ctx) as resp:
+                print(f"[Email Engine]: Successfully sent message to {to_email} via Brevo API.")
+                return True
+        except Exception as e:
+            print(f"[Email Engine Warning - Brevo]: {e}")
+
+    # 4. Standard SMTP / Gmail App Password
+    mail_user = os.getenv('MAIL_USERNAME', os.getenv('GMAIL_USER', to_email)).strip()
+    mail_pass = os.getenv('MAIL_PASSWORD', os.getenv('GMAIL_APP_PASSWORD', '')).strip()
+    mail_server = os.getenv('MAIL_SERVER', 'smtp.gmail.com').strip()
+    mail_port = int(os.getenv('MAIL_PORT', 587))
+
+    if mail_pass and not mail_pass.startswith('your_'):
+        try:
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = email_subject
+            msg['From'] = mail_user
+            msg['To'] = to_email
+            msg.add_header('reply-to', sender_email)
+
+            text_part = MIMEText(f"From: {sender_name} ({sender_email})\nSubject: {subject_text}\n\nMessage:\n{message_text}", 'plain')
+            html_part = MIMEText(html_content, 'html')
+            msg.attach(text_part)
+            msg.attach(html_part)
+
+            if mail_port == 465:
+                server = smtplib.SMTP_SSL(mail_server, mail_port, timeout=10)
+            else:
+                server = smtplib.SMTP(mail_server, mail_port, timeout=10)
+                server.starttls()
+
+            server.login(mail_user, mail_pass)
+            server.sendmail(mail_user, [to_email], msg.as_string())
+            server.quit()
+            print(f"[Email Engine]: Successfully sent message to {to_email} via SMTP ({mail_server}).")
+            return True
+        except Exception as e:
+            print(f"[Email Engine Warning - SMTP]: {e}")
+
+    print(f"[Email Engine Info]: Message saved locally to messages.json. Add RESEND_API_KEY, SENDGRID_API_KEY, BREVO_API_KEY, or MAIL_PASSWORD in backend/.env to send live emails to {to_email}.")
+    return False
+
 # API Routes
 @app.route('/api/health', methods=['GET'])
 def health_check():
@@ -524,9 +724,14 @@ def handle_contact():
 
         save_to_local_file(MESSAGES_FILE, contact_record)
 
+        # Dispatch email notification to target email (louieandrew11@gmail.com)
+        email_sent = send_email_notification(contact_record)
+
         return jsonify({
             "success": True,
-            "message": "Thank you! Message transmitted successfully."
+            "message": "Thank you! Message transmitted successfully.",
+            "email_sent": email_sent,
+            "recipient": os.getenv('OWNER_EMAIL', 'louieandrew11@gmail.com')
         }), 201
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500

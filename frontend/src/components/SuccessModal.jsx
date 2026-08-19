@@ -11,13 +11,13 @@ export default function SuccessModal({ isOpen, onClose }) {
         {/* Close Icon */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full glass-panel text-white/60 hover:text-white"
+          className="absolute top-4 right-4 p-2 rounded-full glass-panel text-white/60 hover:text-white transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Animated Checkmark Circle */}
-        <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-cyan-400 to-purple-600 p-[2px] flex items-center justify-center shadow-[0_0_40px_rgba(168,85,247,0.4)]">
+        <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-cyan-400 via-emerald-400 to-purple-600 p-[2px] flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.4)]">
           <div className="w-full h-full rounded-full bg-[#0a0a0e] flex items-center justify-center">
             <Check className="w-10 h-10 text-cyan-400 stroke-[3]" />
           </div>
@@ -26,15 +26,15 @@ export default function SuccessModal({ isOpen, onClose }) {
         {/* Text Details */}
         <div className="space-y-2">
           <h3 className="text-2xl sm:text-3xl font-serif font-black uppercase tracking-tight text-white text-glow">
-            MESSAGE SENT
+            MESSAGE TRANSMITTED
           </h3>
-          <p className="text-sm font-mono text-purple-400">
-            TRANSMISSION SUCCESSFUL
+          <p className="text-xs font-mono text-cyan-400 tracking-wider uppercase">
+            TARGET: LOUIEANDREW11@GMAIL.COM
           </p>
         </div>
 
         <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-          "Thank you for reaching out. I'll get back to you soon."
+          Thank you for reaching out! Your message has been sent directly to Louie Andrew. He will get back to you shortly.
         </p>
 
         {/* Close Button */}

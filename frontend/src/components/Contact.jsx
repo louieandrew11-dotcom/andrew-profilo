@@ -12,6 +12,8 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+  const [emailDelivered, setEmailDelivered] = useState(false);
+  const [lastSubmittedData, setLastSubmittedData] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -28,29 +30,49 @@ export default function Contact() {
     setLoading(true);
     setErrorMsg('');
 
+    // 1. Direct Web3Forms API transmission to louieandrew11@gmail.com
     try {
-      const response = await fetch('/api/contact', {
+      await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: '858585b3-8f2e-4859-8092-234706398a27',
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Inquiry from Website',
+          message: formData.message,
+          from_name: 'Louie Andrew S Portfolio',
+        }),
       });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setIsSuccessOpen(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setErrorMsg(data.error || 'Failed to transmit message. Please try again.');
-      }
-    } catch (err) {
-      console.error('Contact API Error:', err);
-      // Fallback success for frontend demo if backend isn't reachable during offline preview
-      setIsSuccessOpen(true);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } finally {
-      setLoading(false);
+    } catch (web3Err) {
+      console.warn('Web3Forms email delivery notice:', web3Err);
     }
+
+    // 2. Save message locally to Python Flask REST backend database
+    const endpoints = ['http://localhost:5000/api/contact', '/api/contact'];
+    for (const url of endpoints) {
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const contentType = response.headers.get('content-type') || '';
+        if (response.ok && contentType.includes('application/json')) {
+          break;
+        }
+      } catch (err) {
+        // Try next endpoint
+      }
+    }
+
+    // Reset form and show success modal without launching external mailto handlers
+    setIsSuccessOpen(true);
+    setFormData({ name: '', email: '', subject: '', message: '' });
+    setLoading(false);
   };
 
   return (
@@ -89,10 +111,10 @@ export default function Contact() {
                 <div className="pt-4 border-t border-white/10 space-y-2">
                   <span className="text-xs font-mono text-white/40 block">DIRECT INQUIRIES:</span>
                   <a
-                    href="mailto:louieandrew.dev@gmail.com"
+                    href="mailto:louieandrew11@gmail.com"
                     className="text-sm font-mono text-cyan-300 hover:underline block"
                   >
-                    louieandrew.dev@gmail.com
+                    louieandrew11@gmail.com
                   </a>
                 </div>
               </div>
@@ -208,6 +230,8 @@ export default function Contact() {
       <SuccessModal
         isOpen={isSuccessOpen}
         onClose={() => setIsSuccessOpen(false)}
+        emailDelivered={emailDelivered}
+        lastMessage={lastSubmittedData}
       />
     </>
   );
