@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, ArrowRight, Plus } from 'lucide-react';
+import { ExternalLink, ArrowRight, Plus, ChevronDown, ChevronUp, Grid } from 'lucide-react';
 import ProjectShowcaseContainer from './ProjectShowcaseContainer';
 import AddProjectModal from './AddProjectModal';
 
@@ -9,22 +9,21 @@ gsap.registerPlugin(ScrollTrigger);
 
 const DEFAULT_PROJECTS = [
   {
-    number: 'Ani Apple Store ',
-    title: 'AI-POWERED ELECTRONICS E-COMMERCE',
-    subtitle: 'Smart Commerce with AI Recommendation & Dynamic Inventory',
+    number: 'PROJECT 01',
+    title: 'ANI APPLE STORE — APPLE INTELLIGENCE',
+    subtitle: 'Smart Commerce with Live Siri AI Assistant & Titanium Showcase',
     description:
-      'A sleek dark luxury e-commerce platform built for high-end electronics. Integrates AI recommendations, real-time inventory sync, dynamic filtering, and interactive cart mechanics.',
+      'A sleek dark luxury e-commerce platform built for iPhone 16 Pro and high-end electronics. Integrates live Siri AI Assistant, Grade 5 Titanium showcase, A18 Pro tech spec comparison, and interactive trade-in estimates.',
     fullDescription:
-      'Full-stack e-commerce web application engineered with modern React frontend architecture and a scalable Python Flask REST backend. Features intelligent search auto-completion, AI product recommendations based on browsing metrics, secure payment processing, and real-time MongoDB database updates.',
-    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'GSAP'],
+      'Ani Apple Store is a full-stack dark luxury e-commerce web application engineered with modern React frontend architecture and a scalable Python Flask REST backend. Features an integrated live Siri AI Assistant for instant price checking in India, A18 Pro specs comparison, Grade 5 Titanium design showcase, interactive trade-in estimate calculator, Owner Portal, secure payment processing, and real-time MongoDB database updates.',
+    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'GSAP', 'Siri AI'],
     image: '/assets/project_ecommerce.svg',
     liveUrl: 'https://apple-ai-mu.vercel.app/',
     githubUrl: 'https://github.com/louieandrew11-dotcom/ai-electronics-store',
     features: [
-      'AI Product Recommendation engine based on viewing history',
-      'Real-time inventory stock sync with MongoDB Atlas',
-      'Glassmorphism cart overlay with instant calculation',
-      'Mobile responsive dark luxury UI design'
+      'Live Siri AI Assistant widget with instant iPhone prices, specs & trade-in estimates',
+      'Grade 5 Titanium & A18 Pro interactive tech spec comparison engine',
+      'Real-time inventory stock sync with MongoDB Atlas & Glassmorphism Owner Portal'
     ]
   },
   {
@@ -46,7 +45,24 @@ const DEFAULT_PROJECTS = [
       'Dark high-tech IDE interface'
     ]
   },
-
+  {
+    number: 'PROJECT 03',
+    title: 'SLEEPYGO — HOTEL BOOKING',
+    subtitle: 'Full-Stack Hotel Reservation Engine & Destination Discovery',
+    description:
+      'A sleek luxury hotel booking web platform empowering users to search, compare, and reserve over 500,000 hotel rooms across 50+ Indian cities and global destinations.',
+    fullDescription:
+      'SleepyGo is a full-stack web application built for seamless hotel room reservation and travel destination discovery. Engineered with modern React frontend architecture and a scalable Python Flask REST backend.',
+    tags: ['React', 'Python', 'Flask', 'MongoDB', 'Tailwind CSS', 'Vite'],
+    image: '/assets/project_sleepygo.png',
+    liveUrl: 'https://sleep-go.vercel.app/',
+    githubUrl: 'https://github.com/louieandrew11-dotcom/sleepygo-hotel-booking',
+    features: [
+      'Location-based hotel search covering 500,000+ rooms across 50+ cities',
+      'Interactive check-in & check-out date picker with dynamic guest count filter',
+      'Real-time hotel room availability sync powered by MongoDB database backend'
+    ]
+  }
 ];
 
 export default function ProjectsHorizontal() {
@@ -55,6 +71,7 @@ export default function ProjectsHorizontal() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [projects, setProjects] = useState(DEFAULT_PROJECTS);
+  const [showAll, setShowAll] = useState(false);
 
   // Fetch permanent projects from Flask backend server
   useEffect(() => {
@@ -92,6 +109,15 @@ export default function ProjectsHorizontal() {
     }, 200);
   };
 
+  const toggleShowAll = () => {
+    setShowAll((prev) => !prev);
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 200);
+  };
+
+  const displayedProjects = showAll ? projects : projects.slice(0, 3);
+
   // Optimized GSAP Horizontal Pinned Scroll for PC View & Responsive
   useEffect(() => {
     if (window.innerWidth < 1024) return;
@@ -120,7 +146,7 @@ export default function ProjectsHorizontal() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [projects.length]);
+  }, [displayedProjects.length, showAll]);
 
   return (
     <>
@@ -141,14 +167,27 @@ export default function ProjectsHorizontal() {
             </h2>
           </div>
 
-          {/* PC View Add Project Action Button */}
-          <button
-            onClick={() => setIsAddModalOpen(true)}
-            className="px-8 py-4 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-emerald-400 text-black font-extrabold text-xs font-mono tracking-widest uppercase flex items-center gap-2.5 hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] transition-all hover:scale-105 active:scale-95 shrink-0 self-start md:self-auto shadow-2xl border border-amber-300/40"
-          >
-            <Plus className="w-4 h-4 stroke-[3]" />
-            <span>+ ADD MY PROJECT</span>
-          </button>
+          {/* PC View Action Buttons: View All & Add Project */}
+          <div className="flex flex-wrap items-center gap-3 shrink-0 self-start md:self-auto">
+            {projects.length > 3 && (
+              <button
+                onClick={toggleShowAll}
+                className="px-6 py-3.5 rounded-full glass-panel border border-cyan-500/40 text-cyan-300 font-extrabold text-xs font-mono tracking-widest uppercase flex items-center gap-2 hover:bg-cyan-500/20 hover:border-cyan-400 hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all hover:scale-105 active:scale-95 shadow-xl"
+              >
+                <Grid className="w-4 h-4 text-cyan-400" />
+                <span>{showAll ? 'SHOW TOP 3' : `VIEW ALL PROJECTS (${projects.length})`}</span>
+                {showAll ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            )}
+
+            <button
+              onClick={() => setIsAddModalOpen(true)}
+              className="px-6 py-3.5 rounded-full bg-gradient-to-r from-amber-400 via-amber-500 to-emerald-400 text-black font-extrabold text-xs font-mono tracking-widest uppercase flex items-center gap-2 hover:shadow-[0_0_40px_rgba(245,158,11,0.6)] transition-all hover:scale-105 active:scale-95 shadow-2xl border border-amber-300/40"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>+ ADD MY PROJECT</span>
+            </button>
+          </div>
         </div>
 
         {/* Horizontal Track Container (PC View Centered) */}
@@ -157,14 +196,37 @@ export default function ProjectsHorizontal() {
             ref={trackRef}
             className="flex flex-col lg:flex-row gap-10 lg:gap-14 px-6 md:px-12 lg:px-20 w-full lg:w-max items-center"
           >
-            {projects.map((proj, idx) => (
+            {displayedProjects.map((proj, idx) => (
               <ProjectCard
                 key={proj.number + idx}
                 project={proj}
-                index={idx}
                 onOpenModal={() => setSelectedProject(proj)}
               />
             ))}
+
+            {/* View All Projects End Card */}
+            {!showAll && projects.length > 3 && (
+              <div className="w-[320px] sm:w-[380px] h-[520px] rounded-3xl glass-panel border border-cyan-500/30 p-8 flex flex-col justify-center items-center text-center space-y-6 shrink-0 hover:border-cyan-400 transition-all group shadow-2xl">
+                <div className="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-400/40 flex items-center justify-center text-cyan-300 group-hover:scale-110 transition-transform shadow-[0_0_25px_rgba(6,182,212,0.3)]">
+                  <Grid className="w-8 h-8" />
+                </div>
+                <div className="space-y-2">
+                  <h3 className="text-2xl font-serif font-black uppercase text-white tracking-tight">
+                    +{projects.length - 3} MORE PROJECTS
+                  </h3>
+                  <p className="text-xs font-mono text-cyan-300/80 uppercase tracking-widest">
+                    EXPLORE FULL ARCHITECTURE PORTFOLIO
+                  </p>
+                </div>
+                <button
+                  onClick={toggleShowAll}
+                  className="px-6 py-3.5 rounded-full bg-cyan-400 text-black font-bold text-xs font-mono tracking-widest uppercase flex items-center gap-2 hover:bg-cyan-300 hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] transition-all hover:scale-105 active:scale-95"
+                >
+                  <span>VIEW ALL ({projects.length})</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
