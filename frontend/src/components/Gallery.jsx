@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { RotateCw, Maximize2, Eye, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { RotateCw, Eye, SlidersHorizontal } from 'lucide-react';
 import ImageInfoModal from './ImageInfoModal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -173,7 +173,7 @@ export default function Gallery({ setCursorText }) {
   );
 }
 
-function Rotating3DGalleryCard({ item, index, setCursorText, onOpen }) {
+function Rotating3DGalleryCard({ item, setCursorText, onOpen }) {
   const cardRef = useRef(null);
   const [transform, setTransform] = useState({ rx: 0, ry: 0, scale: 1 });
 

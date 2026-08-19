@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Plus, FolderPlus, Upload, Globe, Link, Sparkles } from 'lucide-react';
+import { X, Plus, Upload, Globe, Link, Sparkles } from 'lucide-react';
 
 export default function AddProjectModal({ isOpen, onClose, onAddProject }) {
   const [formData, setFormData] = useState({

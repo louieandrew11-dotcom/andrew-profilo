@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
 
 export default function LoadingScreen({ onComplete }) {
   const [counter, setCounter] = useState(0);

@@ -300,7 +300,7 @@ export default function AndrewChatbot() {
     }
 
     // Math Calculation Engine
-    const mathMatch = q.match(/(\d+(?:\.\d+)?)\s*([\+\-\*\/])\s*(\d+(?:\.\d+)?)/);
+    const mathMatch = q.match(/(\d+(?:\.\d+)?)\s*([+\-*/])\s*(\d+(?:\.\d+)?)/);
     if (mathMatch) {
       const [, n1Str, op, n2Str] = mathMatch;
       const n1 = parseFloat(n1Str);

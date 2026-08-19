@@ -189,7 +189,7 @@ export default function ProjectsHorizontal() {
   );
 }
 
-function ProjectCard({ project, index, onOpenModal }) {
+function ProjectCard({ project, onOpenModal }) {
   const cardRef = useRef(null);
 
   useEffect(() => {

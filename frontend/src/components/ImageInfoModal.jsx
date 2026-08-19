@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, Sparkles, Maximize2, Tag, Calendar, MapPin } from 'lucide-react';
+import { X, Sparkles, Tag, Calendar, MapPin } from 'lucide-react';
 
 export default function ImageInfoModal({ item, onClose }) {
   useEffect(() => {

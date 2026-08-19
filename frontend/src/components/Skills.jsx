@@ -5,7 +5,6 @@ import {
   Terminal,
   Cpu,
   Database,
-  Layers,
   Layout,
   GitBranch,
   Sparkles,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Sparkles, Heart } from 'lucide-react';
+import { ArrowUp, Heart } from 'lucide-react';
 
 export default function Footer({ lenis }) {
   const scrollToTop = () => {

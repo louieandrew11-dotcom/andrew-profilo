@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { User, GraduationCap, MapPin, Heart, Code, Sparkles } from 'lucide-react';
+import { User, GraduationCap, MapPin, Heart, Code } from 'lucide-react';
 import ImageInfoModal from './ImageInfoModal';
 
 gsap.registerPlugin(ScrollTrigger);

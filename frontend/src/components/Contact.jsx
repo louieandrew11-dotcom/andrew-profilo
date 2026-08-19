@@ -12,8 +12,6 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-  const [emailDelivered, setEmailDelivered] = useState(false);
-  const [lastSubmittedData, setLastSubmittedData] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -64,7 +62,7 @@ export default function Contact() {
         if (response.ok && contentType.includes('application/json')) {
           break;
         }
-      } catch (err) {
+      } catch {
         // Try next endpoint
       }
     }

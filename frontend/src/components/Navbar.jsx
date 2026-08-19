@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Code2, Sparkles, Terminal } from 'lucide-react';
+import { Menu, X, Terminal } from 'lucide-react';
 
 export default function Navbar({ lenis }) {
   const [isScrolled, setIsScrolled] = useState(false);
